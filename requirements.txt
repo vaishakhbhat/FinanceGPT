@@ -1,0 +1,23 @@
+# UI + Web
+streamlit>=1.35
+python-dotenv
+
+# Data & Analysis
+yfinance
+pandas
+numpy
+plotly
+requests
+beautifulsoup4
+
+# Authentication
+bcrypt
+
+# Database
+peewee
+
+# AI & LangChain
+openai
+langchain
+langchain-community
+langchain-openai
