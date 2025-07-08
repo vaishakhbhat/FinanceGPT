@@ -10,15 +10,15 @@ plotly
 requests
 beautifulsoup4
 
-# Authentication
+# Auth
 bcrypt
 
-# Database
+# DB
 peewee
 
-# AI & LangChain
+# AI / Langchain
 openai
 langchain
 langchain-community
 langchain-openai
-langchain_grok
+langchain_groq
