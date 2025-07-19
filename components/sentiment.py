@@ -1,16 +1,16 @@
 import streamlit as st
 import os
-import openai
+import requests
 from dotenv import load_dotenv
 from services.news_api import fetch_news  # Your service should return list of dicts
 
-# Load Groq API Key
 load_dotenv()
-openai.api_key = os.getenv("GROQ_API_KEY")
-openai.api_base = "https://api.groq.com/openai/v1"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Summarization via Groq LLM
 def analyze_overall_sentiment(articles: list) -> str:
+    if not GROQ_API_KEY:
+        return "❌ Groq API key missing!"
+
     combined_text = "\n\n".join(
         f"Title: {a['title']}\nDescription: {a.get('description') or a.get('content') or ''}"
         for a in articles
@@ -25,17 +25,28 @@ def analyze_overall_sentiment(articles: list) -> str:
     )
 
     try:
-        response = openai.ChatCompletion.create(
-            model="llama3-70b-8192",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.5,
-            max_tokens=300,
+        response = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": "llama3-70b-8192",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.5,
+                "max_tokens": 300
+            },
+            timeout=20
         )
-        return response.choices[0].message.content.strip()
+
+        data = response.json()
+        return data["choices"][0]["message"]["content"].strip()
+
     except Exception as e:
         return f"❌ Groq Error: {str(e)}"
 
-# Modern UI function
+
 def render_sentiment():
     st.set_page_config(page_title="Market Sentiment", page_icon="📈")
 
@@ -57,9 +68,9 @@ def render_sentiment():
 
         st.subheader("🗞️ Top 3 News Headlines")
         for idx, article in enumerate(articles[:3], 1):
-            st.markdown(f"**{idx}. [{article['title']}]({article['url']})**")
+            st.markdown(f"*{idx}. [{article['title']}]({article['url']})*")
             st.caption(f"📰 {article['source']['name']} | 🕒 {article['publishedAt']}")
-            st.write(article.get("description") or article.get("content") or "*No content available.*")
+            st.write(article.get("description") or article.get("content") or "No content available.")
             st.markdown("<hr>", unsafe_allow_html=True)
 
         st.subheader("🤖 AI Insight & Investment Suggestion")
