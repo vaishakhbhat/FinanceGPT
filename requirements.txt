@@ -1,3 +1,8 @@
+# UI + Web
+streamlit==1.35.0
+python-dotenv==1.0.1
+
+# Data & Analysis
 yfinance==0.2.40
 pandas==2.2.2
 numpy==1.26.4
@@ -13,9 +18,10 @@ peewee==3.17.1
 
 # AI & LangChain
 openai==0.28
-langchain-openai==0.0.15
+langchain==0.1.16
+langchain-community==0.0.30
+langchain-openai==0.0.13
 langchain-groq==0.0.2
 
 # Payment
 stripe==8.5.0
-
