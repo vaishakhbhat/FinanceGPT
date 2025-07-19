@@ -19,7 +19,7 @@ peewee==3.17.1
 # AI & LangChain
 openai==0.28
 langchain==0.1.16
-langchain-community==0.0.30
+langchain-community==0.0.34
 langchain-openai==0.0.13
 langchain-groq==0.0.2
 
