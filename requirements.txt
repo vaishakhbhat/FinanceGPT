@@ -16,12 +16,5 @@ bcrypt
 # Database
 peewee
 
-# AI & LangChain
-openai
-langchain
-langchain-community
-langchain-openai
-langchain_groq
-
 # Payment
 stripe
