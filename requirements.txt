@@ -18,8 +18,6 @@ peewee
 
 # AI & LangChain
 openai==0.28
-langchain
-langchain-community
 langchain-openai
 langchain_groq
 
