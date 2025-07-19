@@ -17,7 +17,7 @@ bcrypt
 peewee
 
 # AI & LangChain
-openai
+openai==0.28
 langchain
 langchain-community
 langchain-openai
